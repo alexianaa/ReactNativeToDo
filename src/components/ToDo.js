@@ -1,21 +1,55 @@
-import React,{useState} from "react";
+import React,{createRef, useState} from "react";
 import {
-Text, 
+Text,
+View, 
 SafeAreaView, 
 TextInput,
 TouchableWithoutFeedback,
+TouchebleOpacity,
 FlatList,
 StyleSheet,
 } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {},
-    title: {},
-    field: {},
-    button: {},
-    buttonText: {},
-    item: {},
-    form: {},
+    container: {
+        padding: 20,
+        backgroundColor: '#ebecf0',
+        height: 800,
+    },
+    title: {
+        fontWeight: "bold",
+        fontSize: 25,
+        marginBottom: 20,
+    },
+    field: {
+        borderWidth: 1,
+        borderColor: '#949494',
+        padding: 10,
+        fontSize: 15,
+        color: '#333',
+        borderRadius: 5,
+        flex: 1,
+        marginRight: 20,
+    },
+    button: {
+        backgroundColor: '#00cc99',
+        padding: 15,
+        borderRadius: 5,
+        justifyContent: 'center',
+    },
+    buttonText: {
+        color: '#fdfdfd',
+    },
+    item: {
+        borderWidth: 1,
+        borderColor: '#949494',
+        padding: 10,
+        marginTop: 15,
+        borderRadius: 3,
+    },
+    form: {
+        flexDirection: 'row',
+    },
 });
 
 const ToDo = () => {
@@ -23,18 +57,20 @@ const ToDo = () => {
     const [tasks, updateTasks] = useState([]);
 
     const handleAdd = () => {
-        updateTasks([...tasks, task]);
-        updateTask('');
+        if (task.trim()) {
+            updateTasks([...tasks, task]);
+            updateTask('');
+        }
     }
 
-    const handleRenderTask = ({item}) => <Text>{item}</Text>;
+    const handleRenderTask = ({item}) => <Text style={styles.item} >{item}</Text>;
 
     return(
-        <SafeAreaView>
+        <SafeAreaView  >
 
             <View style={styles.container} >
 
-                <Text style={styles.title} >To-Do List</Text>
+                <Text style={styles.title}> To-Do List </Text>
                     <View style={styles.form} >
                         <TextInput 
                         style={styles.field} 
@@ -49,6 +85,7 @@ const ToDo = () => {
                                 <Text style={styles.buttonText} >Add</Text>
                             </View>
                         </TouchableWithoutFeedback>
+
                     </View>
 
                 <FlatList 
